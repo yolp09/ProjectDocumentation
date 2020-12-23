@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66DE0399-A6E8-4129-83A1-E63C073C4E3A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KD.Model</RootNamespace>
+    <AssemblyName>KD.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ModelBase.cs" />
+    <Compile Include="Common\ModelComboBox.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddAddress.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddApplicability.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddDetail.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddNotice.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddProduct.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddStandardProduct.cs" />
+    <Compile Include="ModelsForAdd\ModelOfAddApplicabilityNotice.cs" />
+    <Compile Include="ModelsForAdd\ModelOfChangeDetail.cs" />
+    <Compile Include="ModelsForAdd\ModelOfChangeNotice.cs" />
+    <Compile Include="ModelsForAdd\ModelOfDeleteAddress.cs" />
+    <Compile Include="ModelsForAdd\ModelOfUserConnection.cs" />
+    <Compile Include="PageModel\AddressModel.cs" />
+    <Compile Include="PageModel\ApplicabilityFileModel.cs" />
+    <Compile Include="PageModel\ApplicabilityModel.cs" />
+    <Compile Include="PageModel\DetailModel.cs" />
+    <Compile Include="PageModel\FileModel.cs" />
+    <Compile Include="PageModel\ModelOfPageDetail.cs" />
+    <Compile Include="PageModel\ModelOfPageDetailsInProduct.cs" />
+    <Compile Include="PageModel\ModelOfPageNotice.cs" />
+    <Compile Include="PageModel\ModelOfPageProduct.cs" />
+    <Compile Include="PageModel\ModelOfPageUnusedFiles.cs" />
+    <Compile Include="PageModel\NoticeModel.cs" />
+    <Compile Include="PageModel\ProductModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Data\KD.Data.csproj">
+      <Project>{7d6793f9-f856-4367-b36c-adc764ec07f8}</Project>
+      <Name>KD.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

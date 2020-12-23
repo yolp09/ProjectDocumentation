@@ -1,0 +1,228 @@
+﻿<Page x:Class="KD.View.PageDetail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="PageDetail">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title}" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel Orientation="Vertical" Margin="10,0,10,0">
+                <Label Content="Поиск" Foreground="Black" FontSize="16"/>
+                <ComboBox Width="180" Height="30" FontSize="17" SelectedValue="{Binding Path=SelectedCombobox}" ItemsSource="{Binding Path=ComboBoxItems}" Foreground="Black"/>
+            </StackPanel>
+            <TextBox materialDesign:HintAssist.Hint="Введите текст поиска" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"
+                     Width="200" Margin="10, 3, 10, 0" FontSize="17" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+        </StackPanel>
+
+        <ScrollViewer x:Name="scrl" VerticalScrollBarVisibility="Visible" Grid.Row="2" ScrollChanged="scrl_ScrollChanged">
+            <ItemsControl ItemsSource="{Binding Details}" Grid.IsSharedSizeScope="True">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Информация о детали" 
+                                                Command="{Binding DataContext.SelectDetail, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding Id}">
+                                            <materialDesign:PackIcon Kind="About" />
+                                        </Button>
+                                        <StackPanel Margin="8 0 0 0">
+                                            <TextBlock FontWeight="Bold" Text="{Binding Number}" FontSize="15" Foreground="{Binding Path=TextColor}"/>
+                                            <TextBlock Text="{Binding Name}" FontSize="15" Foreground="{Binding Path=TextColor}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <TabControl Background="{DynamicResource PrimaryHueMidBrush}" FontSize="14">
+                                    
+                                    <TabItem Header="Информация" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="Black" IsSelected="True">
+                                        <Grid>
+                                            <materialDesign:Card Background="{DynamicResource PrimaryHueLightBrush}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Height="200" Padding="8">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    
+                                                    <StackPanel Orientation="Vertical" Grid.RowSpan="4" Margin="0 0 30 0">
+                                                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminate}"
+                                                                Content="{materialDesign:PackIcon Upload}" Margin="10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                                                Command="{Binding DataContext.OpenFileCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                CommandParameter="{Binding Id}" IsEnabled="{Binding Path=IsEnabledFile}" Width="50" Height="50"/>
+                                                        <TextBlock FontWeight="Bold" Text="{Binding Path=InfoScan}"  HorizontalAlignment="Center" TextWrapping="Wrap" MaxWidth="150"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+                                                        <materialDesign:PopupBox PlacementMode="LeftAndAlignBottomEdges" Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+                                                                                 UnfurlOrientation="Horizontal" Width="30" Height="30"
+                                                                                 Visibility="{Binding DataContext.VisibilityAccessLeve, RelativeSource={RelativeSource AncestorType=Page}}">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button ToolTip="Добавить применяемость" Command="{Binding DataContext.AddApplicabilityCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                    <materialDesign:PackIcon Kind="AddBox" Width="25" Height="25" HorizontalAlignment="Center"/>
+                                                                </Button>
+                                                                <Button ToolTip="Добавить адресат" Command="{Binding DataContext.AddAdressCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                    <materialDesign:PackIcon Kind="AddLocation" Width="25" Height="25" HorizontalAlignment="Center"/>
+                                                                </Button>
+                                                                <Button ToolTip="Удалить адресат" Command="{Binding DataContext.DeleteAddressCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                    <materialDesign:PackIcon Kind="LocationOff" Width="25" Height="25" HorizontalAlignment="Center"/>
+                                                                </Button>
+                                                                <Button ToolTip="Изменить деталь" Command="{Binding DataContext.ChangeDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                    <materialDesign:PackIcon Kind="TooltipEdit" Width="25" Height="25" HorizontalAlignment="Center"/>
+                                                                </Button>
+                                                                <Button ToolTip="Удалить деталь" Command="{Binding DataContext.DeleteDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                    <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" HorizontalAlignment="Center"/>
+                                                                </Button>
+                                                            </StackPanel>
+                                                        </materialDesign:PopupBox>
+                                                        <Button Visibility="{Binding DataContext.VisibilityButtonArchive, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                Command="{Binding DataContext.ArchiveCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                CommandParameter="{Binding Id}" ToolTip="Аннулирование" Content="Аннулировать" Margin="10 0"/>
+                                                    </StackPanel>
+
+                                                    <TextBlock Text="Обозначение: " FontWeight="Bold" Grid.Row="0" Grid.Column="1" FontSize="15"/>
+                                                    <TextBlock Text="{Binding Number}" Grid.Column="2" Grid.Row="0" FontSize="15"/>
+                                                    <TextBlock Text="Наименование: " FontWeight="Bold" Grid.Row="1" Grid.Column="1" FontSize="15"/>
+                                                    <TextBlock Text="{Binding Name}" Grid.Column="2" Grid.Row="1" FontSize="15"/>
+                                                    <TextBlock Text="Разработчик: " FontWeight="Bold" Grid.Row="2" Grid.Column="1" FontSize="15"/>
+                                                    <TextBlock Text="{Binding Developer}" Grid.Column="2" Grid.Row="2" FontSize="15"/>
+                                                    <TextBlock Text="Адресаты: " FontWeight="Bold" Grid.Row="3" Grid.Column="1" FontSize="15"/>
+                                                    <TextBlock Text="{Binding Adress}" Grid.Column="2" Grid.Row="3" FontSize="15" TextWrapping="Wrap"/>
+
+                                                </Grid>
+                                            </materialDesign:Card>
+                                        </Grid>
+                                    </TabItem>
+
+                                    <TabItem Header="Применяемость" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="Black">
+                                        <materialDesign:Card Background="{DynamicResource PrimaryHueLightBrush}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Height="200" Padding="8">
+                                            <ListBox ItemsSource="{Binding Path=Applicabilities}" MaxHeight="200">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            
+                                                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Удалить применяемость"
+                                                                    Command="{Binding DataContext.DeleteApplicabilityCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding ApplicabilitySbOrNotSb}"
+                                                                    Visibility="{Binding DataContext.VisibilityAccessLeve, RelativeSource={RelativeSource AncestorType=Page}}">
+                                                                <materialDesign:PackIcon Kind="DeleteForever" />
+                                                            </Button>
+                                                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Информация о детали" Grid.Column="1"
+                                                                    Command="{Binding DataContext.SelectApplicability, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding ApplicabilitySbOrNotSb}">
+                                                                <materialDesign:PackIcon Kind="About" />
+                                                            </Button>
+                                                            <StackPanel Margin="8 0 0 0" Grid.Column="2">
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Number}" TextWrapping="Wrap"/>
+                                                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </materialDesign:Card>
+                                    </TabItem>
+
+                                    <TabItem Header="Извещения" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="Black">
+                                        <materialDesign:Card Background="{DynamicResource PrimaryHueLightBrush}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Height="200" Padding="8">
+                                            <ListBox ItemsSource="{Binding Path=ApplicabilityNotices}" MaxHeight="200">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            
+                                                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Удалить применяемость"
+                                                                    Command="{Binding DataContext.DeleteApplicabilityNoticeCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding ApplicabilityN}"
+                                                                    Visibility="{Binding DataContext.VisibilityAccessLeve, RelativeSource={RelativeSource AncestorType=Page}}">
+                                                                <materialDesign:PackIcon Kind="DeleteForever" />
+                                                            </Button>
+                                                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Информация о детали" Grid.Column="1"
+                                                                    Command="{Binding DataContext.SelectApplicabilityNotice, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding Id}">
+                                                                <materialDesign:PackIcon Kind="About" />
+                                                            </Button>
+                                                            <StackPanel Margin="8 0 0 0" Grid.Column="2">
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Number}" TextWrapping="Wrap"/>
+                                                                <TextBlock Text="{Binding Date}" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </materialDesign:Card>
+                                    </TabItem>
+
+                                    <TabItem Header="Все сканы" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="Black">
+                                        <materialDesign:Card Background="{DynamicResource PrimaryHueLightBrush}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Height="200" Padding="8">
+                                            <ListBox ItemsSource="{Binding Path=ApplicabilityFs}" MaxHeight="200">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            
+                                                            <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                                                    materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminate}"
+                                                                    Content="{materialDesign:PackIcon Upload}" Margin="10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                                                    Command="{Binding DataContext.OpenFileCommandApplicability, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding IdFile}" Width="30" Height="30"/>
+                                                            <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Version}" TextWrapping="Wrap"/>
+                                                                <TextBlock Text="{Binding NumberNotice}" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </materialDesign:Card>
+                                    </TabItem>
+                                </TabControl>
+                            </Expander>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

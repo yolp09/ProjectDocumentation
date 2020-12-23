@@ -1,0 +1,822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KDv1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDetail" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Subscription" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AddressNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdNotice" Type="int" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Subscription" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applicability">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdDetail" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicabilityFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDetail" Type="int" Nullable="false" />
+          <Property Name="IdFile" Type="int" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Notice" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicabilityNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdNotice" Type="int" Nullable="false" />
+          <Property Name="IdDetail" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ApplicabilitySB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDetailSB" Type="int" Nullable="false" />
+          <Property Name="idDetail" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Developer" Type="nvarchar" MaxLength="250" />
+          <Property Name="TypeDetail" Type="int" Nullable="false" />
+          <Property Name="IdFile" Type="int" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="ArchiveNotice" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="FileTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FileData" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+          <Property Name="Developer" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="CountSheets" Type="int" Nullable="false" />
+          <Property Name="ChangeCode" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IdFile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Address_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressNotice_Notice">
+          <End Role="Notice" Type="Self.Notice" Multiplicity="1" />
+          <End Role="AddressNotice" Type="Self.AddressNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AddressNotice">
+              <PropertyRef Name="IdNotice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicability_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="Applicability" Type="Self.Applicability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicability">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicability_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Applicability" Type="Self.Applicability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicability">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityFile_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilityFile" Type="Self.ApplicabilityFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityFile">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityFile_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="1" />
+          <End Role="ApplicabilityFile" Type="Self.ApplicabilityFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityFile">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityNotice_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilityNotice" Type="Self.ApplicabilityNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityNotice">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityNotice_Notice">
+          <End Role="Notice" Type="Self.Notice" Multiplicity="1" />
+          <End Role="ApplicabilityNotice" Type="Self.ApplicabilityNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityNotice">
+              <PropertyRef Name="IdNotice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilitySB_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilitySB" Type="Self.ApplicabilitySB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilitySB">
+              <PropertyRef Name="IdDetailSB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilitySB_Detail1">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilitySB" Type="Self.ApplicabilitySB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilitySB">
+              <PropertyRef Name="idDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detail_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="0..1" />
+          <End Role="Detail" Type="Self.Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detail">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notice_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="1" />
+          <End Role="Notice" Type="Self.Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notice">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KDv1ModelContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddressNotice" EntityType="Self.AddressNotice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applicability" EntityType="Self.Applicability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicabilityFile" EntityType="Self.ApplicabilityFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicabilityNotice" EntityType="Self.ApplicabilityNotice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicabilitySB" EntityType="Self.ApplicabilitySB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detail" EntityType="Self.Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileTable" EntityType="Self.FileTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notice" EntityType="Self.Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Address_Detail" Association="Self.FK_Address_Detail">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressNotice_Notice" Association="Self.FK_AddressNotice_Notice">
+            <End Role="Notice" EntitySet="Notice" />
+            <End Role="AddressNotice" EntitySet="AddressNotice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicability_Detail" Association="Self.FK_Applicability_Detail">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="Applicability" EntitySet="Applicability" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicability_Product" Association="Self.FK_Applicability_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Applicability" EntitySet="Applicability" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityFile_Detail" Association="Self.FK_ApplicabilityFile_Detail">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="ApplicabilityFile" EntitySet="ApplicabilityFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityFile_FileTable" Association="Self.FK_ApplicabilityFile_FileTable">
+            <End Role="FileTable" EntitySet="FileTable" />
+            <End Role="ApplicabilityFile" EntitySet="ApplicabilityFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityNotice_Detail" Association="Self.FK_ApplicabilityNotice_Detail">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="ApplicabilityNotice" EntitySet="ApplicabilityNotice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityNotice_Notice" Association="Self.FK_ApplicabilityNotice_Notice">
+            <End Role="Notice" EntitySet="Notice" />
+            <End Role="ApplicabilityNotice" EntitySet="ApplicabilityNotice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilitySB_Detail" Association="Self.FK_ApplicabilitySB_Detail">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="ApplicabilitySB" EntitySet="ApplicabilitySB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilitySB_Detail1" Association="Self.FK_ApplicabilitySB_Detail1">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="ApplicabilitySB" EntitySet="ApplicabilitySB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detail_FileTable" Association="Self.FK_Detail_FileTable">
+            <End Role="FileTable" EntitySet="FileTable" />
+            <End Role="Detail" EntitySet="Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notice_FileTable" Association="Self.FK_Notice_FileTable">
+            <End Role="FileTable" EntitySet="FileTable" />
+            <End Role="Notice" EntitySet="Notice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KDv1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdDetail" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subscription" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK_Address_Detail" FromRole="Address" ToRole="Detail" />
+        </EntityType>
+        <EntityType Name="AddressNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdNotice" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subscription" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Notice" Relationship="Self.FK_AddressNotice_Notice" FromRole="AddressNotice" ToRole="Notice" />
+        </EntityType>
+        <EntityType Name="Applicability">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdDetail" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK_Applicability_Detail" FromRole="Applicability" ToRole="Detail" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Applicability_Product" FromRole="Applicability" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ApplicabilityFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdDetail" Type="Int32" Nullable="false" />
+          <Property Name="IdFile" Type="Int32" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK_ApplicabilityFile_Detail" FromRole="ApplicabilityFile" ToRole="Detail" />
+          <NavigationProperty Name="FileTable" Relationship="Self.FK_ApplicabilityFile_FileTable" FromRole="ApplicabilityFile" ToRole="FileTable" />
+        </EntityType>
+        <EntityType Name="ApplicabilityNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdNotice" Type="Int32" Nullable="false" />
+          <Property Name="IdDetail" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK_ApplicabilityNotice_Detail" FromRole="ApplicabilityNotice" ToRole="Detail" />
+          <NavigationProperty Name="Notice" Relationship="Self.FK_ApplicabilityNotice_Notice" FromRole="ApplicabilityNotice" ToRole="Notice" />
+        </EntityType>
+        <EntityType Name="ApplicabilitySB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdDetailSB" Type="Int32" Nullable="false" />
+          <Property Name="idDetail" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetailSB" Relationship="Self.FK_ApplicabilitySB_Detail" FromRole="ApplicabilitySB" ToRole="Detail" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK_ApplicabilitySB_Detail1" FromRole="ApplicabilitySB" ToRole="Detail" />
+        </EntityType>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Developer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TypeDetail" Type="Int32" Nullable="false" />
+          <Property Name="IdFile" Type="Int32" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="ArchiveNotice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Detail" FromRole="Detail" ToRole="Address" />
+          <NavigationProperty Name="Applicabilities" Relationship="Self.FK_Applicability_Detail" FromRole="Detail" ToRole="Applicability" />
+          <NavigationProperty Name="ApplicabilityFiles" Relationship="Self.FK_ApplicabilityFile_Detail" FromRole="Detail" ToRole="ApplicabilityFile" />
+          <NavigationProperty Name="ApplicabilityNotices" Relationship="Self.FK_ApplicabilityNotice_Detail" FromRole="Detail" ToRole="ApplicabilityNotice" />
+          <NavigationProperty Name="ApplicabilitySBProducts" Relationship="Self.FK_ApplicabilitySB_Detail" FromRole="Detail" ToRole="ApplicabilitySB" />
+          <NavigationProperty Name="ApplicabilitySBDetails" Relationship="Self.FK_ApplicabilitySB_Detail1" FromRole="Detail" ToRole="ApplicabilitySB" />
+          <NavigationProperty Name="FileTable" Relationship="Self.FK_Detail_FileTable" FromRole="Detail" ToRole="FileTable" />
+        </EntityType>
+        <EntityType Name="FileTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="ApplicabilityFiles" Relationship="Self.FK_ApplicabilityFile_FileTable" FromRole="FileTable" ToRole="ApplicabilityFile" />
+          <NavigationProperty Name="Details" Relationship="Self.FK_Detail_FileTable" FromRole="FileTable" ToRole="Detail" />
+          <NavigationProperty Name="Notices" Relationship="Self.FK_Notice_FileTable" FromRole="FileTable" ToRole="Notice" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Developer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountSheets" Type="Int32" Nullable="false" />
+          <Property Name="ChangeCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdFile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AddressNotices" Relationship="Self.FK_AddressNotice_Notice" FromRole="Notice" ToRole="AddressNotice" />
+          <NavigationProperty Name="ApplicabilityNotices" Relationship="Self.FK_ApplicabilityNotice_Notice" FromRole="Notice" ToRole="ApplicabilityNotice" />
+          <NavigationProperty Name="FileTable" Relationship="Self.FK_Notice_FileTable" FromRole="Notice" ToRole="FileTable" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Applicabilities" Relationship="Self.FK_Applicability_Product" FromRole="Product" ToRole="Applicability" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Address_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressNotice_Notice">
+          <End Role="Notice" Type="Self.Notice" Multiplicity="1" />
+          <End Role="AddressNotice" Type="Self.AddressNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AddressNotice">
+              <PropertyRef Name="IdNotice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicability_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="Applicability" Type="Self.Applicability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicability">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicability_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Applicability" Type="Self.Applicability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicability">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityFile_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilityFile" Type="Self.ApplicabilityFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityFile">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityFile_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="1" />
+          <End Role="ApplicabilityFile" Type="Self.ApplicabilityFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityFile">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityNotice_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilityNotice" Type="Self.ApplicabilityNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityNotice">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilityNotice_Notice">
+          <End Role="Notice" Type="Self.Notice" Multiplicity="1" />
+          <End Role="ApplicabilityNotice" Type="Self.ApplicabilityNotice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilityNotice">
+              <PropertyRef Name="IdNotice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilitySB_Detail">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilitySB" Type="Self.ApplicabilitySB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilitySB">
+              <PropertyRef Name="IdDetailSB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicabilitySB_Detail1">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="1" />
+          <End Role="ApplicabilitySB" Type="Self.ApplicabilitySB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicabilitySB">
+              <PropertyRef Name="idDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detail_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="0..1" />
+          <End Role="Detail" Type="Self.Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detail">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notice_FileTable">
+          <End Role="FileTable" Type="Self.FileTable" Multiplicity="1" />
+          <End Role="Notice" Type="Self.Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notice">
+              <PropertyRef Name="IdFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KDv1Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="AddressNotices" EntityType="Self.AddressNotice" />
+          <EntitySet Name="Applicabilities" EntityType="Self.Applicability" />
+          <EntitySet Name="ApplicabilityFiles" EntityType="Self.ApplicabilityFile" />
+          <EntitySet Name="ApplicabilityNotices" EntityType="Self.ApplicabilityNotice" />
+          <EntitySet Name="ApplicabilitySB" EntityType="Self.ApplicabilitySB" />
+          <EntitySet Name="Details" EntityType="Self.Detail" />
+          <EntitySet Name="FileTables" EntityType="Self.FileTable" />
+          <EntitySet Name="Notices" EntityType="Self.Notice" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Address_Detail" Association="Self.FK_Address_Detail">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressNotice_Notice" Association="Self.FK_AddressNotice_Notice">
+            <End Role="Notice" EntitySet="Notices" />
+            <End Role="AddressNotice" EntitySet="AddressNotices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicability_Detail" Association="Self.FK_Applicability_Detail">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="Applicability" EntitySet="Applicabilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicability_Product" Association="Self.FK_Applicability_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Applicability" EntitySet="Applicabilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityFile_Detail" Association="Self.FK_ApplicabilityFile_Detail">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="ApplicabilityFile" EntitySet="ApplicabilityFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityFile_FileTable" Association="Self.FK_ApplicabilityFile_FileTable">
+            <End Role="FileTable" EntitySet="FileTables" />
+            <End Role="ApplicabilityFile" EntitySet="ApplicabilityFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityNotice_Detail" Association="Self.FK_ApplicabilityNotice_Detail">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="ApplicabilityNotice" EntitySet="ApplicabilityNotices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilityNotice_Notice" Association="Self.FK_ApplicabilityNotice_Notice">
+            <End Role="Notice" EntitySet="Notices" />
+            <End Role="ApplicabilityNotice" EntitySet="ApplicabilityNotices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilitySB_Detail" Association="Self.FK_ApplicabilitySB_Detail">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="ApplicabilitySB" EntitySet="ApplicabilitySB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicabilitySB_Detail1" Association="Self.FK_ApplicabilitySB_Detail1">
+            <End Role="Detail" EntitySet="Details" />
+            <End Role="ApplicabilitySB" EntitySet="ApplicabilitySB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detail_FileTable" Association="Self.FK_Detail_FileTable">
+            <End Role="FileTable" EntitySet="FileTables" />
+            <End Role="Detail" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notice_FileTable" Association="Self.FK_Notice_FileTable">
+            <End Role="FileTable" EntitySet="FileTables" />
+            <End Role="Notice" EntitySet="Notices" />
+          </AssociationSet>
+          <EntitySet Name="History" EntityType="KDv1Model.History" />
+        </EntityContainer>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KDv1ModelContainer" CdmEntityContainer="KDv1Context">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="KDv1Model.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+                <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="Subscription" ColumnName="Subscription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressNotices">
+            <EntityTypeMapping TypeName="KDv1Model.AddressNotice">
+              <MappingFragment StoreEntitySet="AddressNotice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdNotice" ColumnName="IdNotice" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Subscription" ColumnName="Subscription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applicabilities">
+            <EntityTypeMapping TypeName="KDv1Model.Applicability">
+              <MappingFragment StoreEntitySet="Applicability">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicabilityFiles">
+            <EntityTypeMapping TypeName="KDv1Model.ApplicabilityFile">
+              <MappingFragment StoreEntitySet="ApplicabilityFile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+                <ScalarProperty Name="IdFile" ColumnName="IdFile" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Notice" ColumnName="Notice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicabilityNotices">
+            <EntityTypeMapping TypeName="KDv1Model.ApplicabilityNotice">
+              <MappingFragment StoreEntitySet="ApplicabilityNotice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdNotice" ColumnName="IdNotice" />
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicabilitySB">
+            <EntityTypeMapping TypeName="KDv1Model.ApplicabilitySB">
+              <MappingFragment StoreEntitySet="ApplicabilitySB">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdDetailSB" ColumnName="IdDetailSB" />
+                <ScalarProperty Name="idDetail" ColumnName="idDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Details">
+            <EntityTypeMapping TypeName="KDv1Model.Detail">
+              <MappingFragment StoreEntitySet="Detail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="TypeDetail" ColumnName="TypeDetail" />
+                <ScalarProperty Name="IdFile" ColumnName="IdFile" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="ArchiveNotice" ColumnName="ArchiveNotice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileTables">
+            <EntityTypeMapping TypeName="KDv1Model.FileTable">
+              <MappingFragment StoreEntitySet="FileTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileData" ColumnName="FileData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notices">
+            <EntityTypeMapping TypeName="KDv1Model.Notice">
+              <MappingFragment StoreEntitySet="Notice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="CountSheets" ColumnName="CountSheets" />
+                <ScalarProperty Name="ChangeCode" ColumnName="ChangeCode" />
+                <ScalarProperty Name="IdFile" ColumnName="IdFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="KDv1Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KDv1Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="KDv1Model.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

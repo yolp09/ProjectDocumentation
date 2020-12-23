@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52934a50b68e428093adde0715dacd19" Name="Diagram1">
+        <EntityTypeShape EntityType="KDv1Model.Address" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.AddressNotice" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.Applicability" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.ApplicabilityFile" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.ApplicabilityNotice" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.ApplicabilitySB" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.Detail" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.FileTable" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.Notice" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.Product" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDv1Model.User" Width="1.5" PointX="1.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="KDv1Model.FK_Address_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_AddressNotice_Notice" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_Applicability_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_Applicability_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilityFile_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilityFile_FileTable" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilityNotice_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilityNotice_Notice" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilitySB_Detail" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_ApplicabilitySB_Detail1" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_Detail_FileTable" ManuallyRouted="false" />
+        <AssociationConnector Association="KDv1Model.FK_Notice_FileTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KDv1Model.History" Width="1.5" PointX="3.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

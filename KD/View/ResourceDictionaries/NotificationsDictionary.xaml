@@ -1,0 +1,173 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:notificationM="clr-namespace:KD.View.NotificationMessages"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Окно ошибки -->
+    <DataTemplate DataType="{x:Type notificationM:ErrorNotificationMessage}">
+        <StackPanel Margin="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <materialDesign:PackIcon Kind="Error" Height="40" Width="40" Grid.Column="0" />
+                <StackPanel Margin="10" Grid.Column="1" Width="300">
+                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                    <TextBlock Text="{Binding Message}" FontSize="15" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            <Button Width="100" HorizontalAlignment="Right" Margin="10" Content="ОК" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17"/>
+        </StackPanel>
+    </DataTemplate>
+    
+    <!-- Окно с сообщением -->
+    <DataTemplate DataType="{x:Type notificationM:InfoNotificationMessage}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <Button Width="100" HorizontalAlignment="Right" Margin="10" Content="ОК" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Диалоговое окно с сообщением (выход)-->
+    <DataTemplate DataType="{x:Type notificationM:DialogInfoNotificationMessageExit}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="Exit">
+            <StackPanel Margin="20">
+                <StackPanel Margin="10" Width="350">
+                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                    <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandExit}" FontSize="17">
+                        <Button.CommandParameter>
+                            <system:Boolean>True</system:Boolean>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Диалоговое окно с сообщением (закрыть подключение)-->
+    <DataTemplate DataType="{x:Type notificationM:DINMExitConnection}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="ExitConnection">
+            <StackPanel Margin="20">
+                <StackPanel Margin="10" Width="350">
+                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                    <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandExit}" FontSize="17">
+                        <Button.CommandParameter>
+                            <system:Boolean>True</system:Boolean>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Диалоговое окно с сообщением (удаление применяемости)-->
+    <DataTemplate DataType="{x:Type notificationM:DINMApplicabilityDelete}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandApplicability}" FontSize="17">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Диалоговое окно с сообщением (удаление детали)-->
+    <DataTemplate DataType="{x:Type notificationM:DINMessageDeleteDetail}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandDelete}" FontSize="17">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+    
+    <!-- Диалоговое окно с сообщением (удаление извещения)-->
+    <DataTemplate DataType="{x:Type notificationM:DINMessageDeleteNotice}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandDelete}" FontSize="17">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Диалоговое окно с сообщением (удаление применяемости извещения)-->
+    <DataTemplate DataType="{x:Type notificationM:DINApplicabilityNoticeDelete_Notice}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandDeleteApplicabilityNotice}" FontSize="17">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+    
+    <!-- Диалоговое окно с сообщением (удаление применяемости извещения из детали)-->
+    <DataTemplate DataType="{x:Type notificationM:DINApplicabilityNoticeDelete_Detail}">
+        <StackPanel Margin="20">
+            <StackPanel Margin="10" Width="350">
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBlock Text="{Binding Message}" FontSize="17" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                <Button Width="100" Margin="10" Content="Да" Command="{Binding DialogInfoCommandDeleteApplicabilityNotice}" FontSize="17">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="100" Margin="10" Content="Нет" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" FontSize="17">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

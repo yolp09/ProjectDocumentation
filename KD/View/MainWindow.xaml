@@ -1,0 +1,206 @@
+﻿<Window x:Class="KD.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:KD.View"
+        Height="800" Width="1124"  MinHeight="300" MinWidth="500" AllowsTransparency="True" WindowStyle="None" Background="Transparent"
+        WindowState="{Binding WindowState, Mode=TwoWay}" Closing="Window_Closing">
+    <!--AllowsTransparency="True" WindowStyle="None" Background="Transparent"-->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionaries/MenuMovementsDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/NotificationsDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/DialogWindowsDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <materialDesign:DialogHost CloseOnClickAway="False" IsOpen="{Binding IsDialogOpen}" Identifier="MainWindow">
+            <Grid>
+                <Grid.LayoutTransform>
+                    <ScaleTransform CenterX="0" CenterY="0"
+                                    ScaleX="{Binding ElementName=uiScaleSlider,Path=Value}"
+                                    ScaleY="{Binding ElementName=uiScaleSlider,Path=Value}"/>
+                </Grid.LayoutTransform>
+                <Border Width="auto" Height="auto" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Background="White">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!--Нижняя панель-->
+                        <Border Width="auto" Height="auto" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Grid.Row="3" Grid.ColumnSpan="2" Background="{DynamicResource PrimaryHueMidBrush}"/>
+
+                        <!--Верхняя панель-->
+                        <materialDesign:ColorZone Mode="PrimaryMid" Padding="5" Grid.Row="0" Grid.ColumnSpan="2">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right">
+                                        <ListBox Background="#eeeeee">
+                                            <ListBoxItem>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Rectangle x:Name="grey" Height="40" Width="40" Fill="#9e9e9e" Margin="1" ToolTip="Серый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=grey, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="blue" Height="40" Width="40" Fill="#03a9f4" Margin="1" ToolTip="Синий">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=blue, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="yellow" Height="40" Width="40" Fill="#ffeb3b" Margin="1" ToolTip="Желтый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=yellow, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="orange" Height="40" Width="40" Fill="#ff9800" Margin="1" ToolTip="Оранжевый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=orange, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="deeppurple" Height="40" Width="40" Fill="#673ab7" Margin="1" ToolTip="Фиолетовый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=deeppurple, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="green" Height="40" Width="40" Fill="#8bc34a" Margin="1" ToolTip="Зеленый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=green, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="red" Height="40" Width="40" Fill="#f44336" Margin="1" ToolTip="Красный">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=red, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                    <Rectangle x:Name="purple" Height="40" Width="40" Fill="#9c27b0" Margin="1" ToolTip="Сливовый">
+                                                        <Rectangle.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick" 
+                                                                          Command="{Binding DataContext.ChangeSkinCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                                          CommandParameter="{Binding ElementName=purple, Path=Name}"/>
+                                                        </Rectangle.InputBindings>
+                                                    </Rectangle>
+                                                </StackPanel>
+                                            </ListBoxItem>
+                                            <ListBoxItem>
+                                                <CheckBox x:Name="CheckIsSave" Content="Сохранять учетную запись пользователя" FontSize="17" Style="{StaticResource MaterialDesignDarkCheckBox}" Foreground="Black"
+                                                          Click="CheckBox_Checked" IsEnabled="{Binding Path=IsEnabledSaveUser}"/>
+                                            </ListBoxItem>
+                                        </ListBox>
+                                    </materialDesign:PopupBox>
+                                    
+                                    <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" Padding="0" VerticalAlignment="Top"
+                                            Command="{Binding WindowsStateMinimizeCommand}" ToolTip="Свернуть">
+                                        <materialDesign:ColorZone Mode="PrimaryDark"  HorizontalAlignment="Center" Margin="0">
+                                            <materialDesign:PackIcon Kind="WindowMinimize" Width="25" Height="25" Margin="0" HorizontalAlignment="Center"/>
+                                        </materialDesign:ColorZone>
+                                    </Button>
+                                    <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" Padding="0" VerticalAlignment="Top"
+                                            Command="{Binding WindowsStateMaximizeCommand}" ToolTip="Развернуть">
+                                        <materialDesign:ColorZone Mode="PrimaryDark"  HorizontalAlignment="Center" Margin="0">
+                                            <materialDesign:PackIcon Kind="WindowMaximize" Width="25" Height="25" Margin="0" HorizontalAlignment="Center"/>
+                                        </materialDesign:ColorZone>
+                                    </Button>
+                                    <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" Padding="0" VerticalAlignment="Top"
+                                            Command="{Binding ExitCommand}" ToolTip="Закрыть">
+                                        <materialDesign:ColorZone Mode="PrimaryDark"  HorizontalAlignment="Center" Margin="0">
+                                            <materialDesign:PackIcon Kind="CloseBox" Width="25" Height="25" Margin="0" HorizontalAlignment="Center"/>
+                                        </materialDesign:ColorZone>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleButton HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="Menu_Click" IsChecked="True"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Header}" HorizontalAlignment="Left" FontSize="15" Margin="10 0"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:ColorZone>
+
+                        <!--Основная часть окна-->
+                        <Grid HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Background="{DynamicResource PrimaryHueMidBrush}" x:Name="GridMenu" Width="250">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--Лого НТЦ-->
+                            <Grid Grid.Row="0" Background="White">
+                                <Border CornerRadius="30,30,30,30" Margin="10,6,10,7">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="Images\NTZ AO.bmp"/>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                            <!--Меню-->
+                            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                                <ItemsControl ItemsSource="{Binding Menu}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:UserControlMenuItem/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Button Content="Назад" Width="100" FontSize="19" HorizontalAlignment="Left" Margin="10" Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Foreground="Black" Visibility="{Binding Path=VisibilityButtonBack}" Grid.Column="1" Grid.Row="1" Command="{Binding Path=BackCommand}"/>
+                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Left" Margin="20 10" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="Black" Grid.Column="1" Grid.Row="2"/>
+                        <!--Отображение-->
+                        <Frame HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="2"
+                               Content="{Binding Path=CurrentPage}" NavigationUIVisibility="Hidden"/>
+
+                        <!--Маштабирование окна-->
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" Visibility="Hidden">
+                            <Slider HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="119" x:Name="uiScaleSlider" Ticks="1" Minimum="0.5"
+                                    Maximum="2" IsSnapToTickEnabled="False"
+                                    TickPlacement="BottomRight" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Value="1" IsTabStop="False"/>
+                        </StackPanel>
+                        <Rectangle Grid.RowSpan="4" Grid.ColumnSpan="2"
+                                   Cursor="SizeWE" Fill="Transparent" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Right"
+                                   MouseLeftButtonDown="Window_initiateWiden"
+                                   MouseLeftButtonUp="Window_endWiden"
+                                   MouseMove="Window_Widen"/>
+                        <Rectangle Grid.RowSpan="4" Grid.ColumnSpan="2"
+                                   Cursor="SizeNS" Fill="Transparent" Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                                   MouseLeftButtonDown="Window_initiateWiden"
+                                   MouseLeftButtonUp="Window_endWiden"
+                                   MouseMove="Window_Heighten"/>
+                        <Rectangle Grid.RowSpan="4" Grid.ColumnSpan="2"
+                                   Cursor="SizeNWSE" Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                   MouseLeftButtonDown="Window_initiateWiden"
+                                   MouseLeftButtonUp="Window_endWiden"
+                                   MouseMove="Window_HeightenAndWiden"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </materialDesign:DialogHost>
+    </Grid>
+</Window>

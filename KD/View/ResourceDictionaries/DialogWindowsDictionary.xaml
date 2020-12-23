@@ -1,0 +1,492 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:dialogWindows="clr-namespace:KD.ViewModel.AddDialogWindows">
+
+
+    <!-- Окно добавления изделия -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddProduct}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddProduct">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" Margin="10 0" FontSize="20"
+                             materialDesign:HintAssist.Hint="Введите обозначение" Text="{Binding Path=NumberProduct}"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 20" Width="400" FontSize="20"
+                             materialDesign:HintAssist.Hint="Введите наименование" Text="{Binding Path=NameProduct}"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавления детали -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddDetail}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddDetail">
+            <StackPanel Margin="20" Width="580">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0">
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите раздел" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              FontSize="17" Width="250" HorizontalAlignment="Left" IsReadOnly="True" SelectedValue="{Binding Path=SelectedSection}"
+                              ItemsSource="{Binding Path=ComboSections}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите применяемость" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              FontSize="17" Width="250" HorizontalAlignment="Left"  Margin="50 0" ItemsSource="{Binding Path=ComboProducts}" 
+                              SelectedValue="{Binding Path=SelectedProducts}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 10">
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Width="220"
+                             Margin="0" FontSize="17" Text="{Binding Path=NumberDetail}" materialDesign:HintAssist.Hint="Введите обозначение"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="20 0"
+                             Width="320" FontSize="17" Text="{Binding Path=NameDetail}" materialDesign:HintAssist.Hint="Введите наименование"/>
+                </StackPanel>
+                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Left" Width="560"
+                         Margin="10 10" FontSize="17" Text="{Binding Path=Developer}" materialDesign:HintAssist.Hint="Введите разработчика"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <CheckBox Content="Добавить скан" x:Name="ch" FontSize="17" IsChecked="{Binding Path=CheckedScan}" Visibility="{Binding Path=VisibilityCheckBoxScan}"/>
+                        <TextBlock FontSize="17" Text="Добавить скан" Margin="10 0" Visibility="{Binding Path=VisibilityTextBlockScan}"/>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFile}"
+                                Content="{materialDesign:PackIcon Upload}" IsEnabled="{Binding ElementName=ch, Path=IsChecked}"
+                                Command="{Binding Path=AddScanCommand}" Margin="40 10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                Width="40" Height="40" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <TextBlock FontSize="17" Text="{Binding Path=UploadedFileInformation}" Margin="10 0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавления стандартного изделия -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddStandardProduct}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddStandardProduct">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 20" Width="400"
+                             FontSize="20" materialDesign:HintAssist.Hint="Введите наименование" Text="{Binding Path=NameProduct}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Path= VisibilityScan}" Margin="47 0">
+                    <StackPanel>
+                        <CheckBox Content="Добавить скан" x:Name="ch" FontSize="17" IsChecked="{Binding Path=CheckedScan}"/>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFile}"
+                                Content="{materialDesign:PackIcon Upload}" IsEnabled="{Binding ElementName=ch, Path=IsChecked}"
+                                Command="{Binding Path=AddScanCommand}" Margin="20 10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                Width="40" Height="40" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <TextBlock FontSize="17" Text="{Binding Path=UploadedFileInformation}" Margin="10 0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавления извещения -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddNotice}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddNotice">
+            <StackPanel Margin="20" Height="600">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Добавление извещения" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <TabControl Background="White" FontSize="14" BorderThickness="0">
+                    <TabItem Header="Добавление деталей" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource ControlForeground}">
+                        <StackPanel>
+                            <ComboBox materialDesign:HintAssist.Hint="Выберите раздел" Foreground="Black" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                      FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" SelectedValue="{Binding Path=SelectedIdSection}"
+                                      ItemsSource="{Binding Path=ComboSections}" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="10 0"/>
+                            <StackPanel Orientation="Horizontal" Margin="10 0">
+                                <ComboBox materialDesign:HintAssist.Hint="Выберите изделие" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" 
+                                          FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" ItemsSource="{Binding Path=ComboProducts}"
+                                          SelectedValue="{Binding Path=SelectedIdProduct}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                                <ComboBox materialDesign:HintAssist.Hint="Выберите деталь" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" 
+                                          FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" ItemsSource="{Binding Path=ComboDetails}"
+                                          SelectedValue="{Binding Path=SelectedIdDetail}" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="30 0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <Button Content="{materialDesign:PackIcon PlaylistPlus}" Command="{Binding Path=PlusDetail}" ToolTip="Добавить деталь"/>
+                                <Button Content="{materialDesign:PackIcon PlaylistMinus}" Command="{Binding Path=MinusDetail}" Margin="15 0" ToolTip="Убрать деталь"/>
+                                <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                        materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFileDetail}"
+                                        Content="{materialDesign:PackIcon Upload}" Command="{Binding Path=AddScanDetail}" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                        Width="40" Height="40" HorizontalAlignment="Left" ToolTip="Добавить обновленный скан"/>
+                            </StackPanel>
+                            <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" Margin="10" Foreground="Black">
+                                <StackPanel>
+                                    <Expander HorizontalAlignment="Stretch" Header="Список деталей, входящих в извещение" IsExpanded="True">
+                                        <StackPanel Orientation="Vertical" Margin="10 0">
+                                            <TextBlock Text="Архив" Margin="2"/>
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                <ListBox ItemsSource="{Binding Path=NoticeDetails, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectNoticeDetail}" MaxHeight="200">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                    <ColumnDefinition />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                
+                                                                <ToggleButton VerticalAlignment="Center" IsChecked="{Binding SetArchive}" Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                                                                              Content="{materialDesign:PackIcon CheckboxBlankCircleOutline}" />
+                                                                <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                                                    <TextBlock FontWeight="Bold" Text="{Binding NumberAndName}" TextWrapping="Wrap" MaxWidth="350"/>
+                                                                    <TextBlock Text="{Binding DescriptionFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" MaxWidth="350"/>
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="2">
+                                                                    <RadioButton Content="(Изменение скана)" IsChecked="{Binding IsScan}"/>
+                                                                    <RadioButton IsChecked="{Binding IsAddApplicability}">
+                                                                        <RadioButton.Content>
+                                                                            <TextBlock Text="{Binding Path=ContentRadioButtonAdd}" TextWrapping="Wrap" MaxWidth="200"/>
+                                                                        </RadioButton.Content>
+                                                                    </RadioButton>
+                                                                    <RadioButton  IsChecked="{Binding IsDeleteApplicability}">
+                                                                        <RadioButton.Content>
+                                                                            <TextBlock Text="{Binding Path=ContentRadioButtonDelete}" TextWrapping="Wrap" MaxWidth="200"/>
+                                                                        </RadioButton.Content>
+                                                                    </RadioButton>
+                                                                    <RadioButton Content="(Аннулировано)" IsChecked="{Binding IsArchive}"/>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </Expander>
+                                </StackPanel>
+                            </materialDesign:Card>
+                        </StackPanel>
+                    </TabItem>
+                    
+                    <TabItem Header="Заполнение информации об извещении" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource ControlForeground}">
+                        <StackPanel Margin="20" Width="500">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 0" Width="300"
+                                         FontSize="17" materialDesign:HintAssist.Hint="Введите номер извещения" Text="{Binding Path=NumberNotice}" Foreground="Black"/>
+                                <DatePicker Width="150" materialDesign:HintAssist.Hint="Введите дату" FontSize="17"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                            SelectedDate="{Binding Path=DateNotice}" Foreground="Black"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10" Width="250"
+                                         FontSize="17" materialDesign:HintAssist.Hint="Введите разработчика" Text="{Binding Path=Developer}" Foreground="Black"/>
+                                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap"  HorizontalAlignment="Center" Margin="10" Width="200"
+                                         FontSize="17" materialDesign:HintAssist.Hint="Кол-во листов" Text="{Binding Path=CountSheets}" Foreground="Black"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10 0" Width="470"
+                                     FontSize="17" materialDesign:HintAssist.Hint="Введите код изменения" Text="{Binding Path=ChangeCode}" Foreground="Black"/>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0 10">
+                                    <TextBlock FontSize="17" Text="Добавить скан" Margin="10 0" Foreground="Black"/>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                            materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFile}"
+                                            Content="{materialDesign:PackIcon Upload}" Command="{Binding Path=AddScanNotice}"
+                                            Margin="40 10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua" Width="40" Height="40" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                                <TextBlock FontSize="17" Text="{Binding Path=UploadedFileInformation}" Margin="10 0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400" Foreground="Black"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+               
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+    
+    <!-- Окно изменения детали -->
+    <DataTemplate DataType="{x:Type dialogWindows:ChangeDetail}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="ChangeDetail">
+            <StackPanel Margin="20" Width="580">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="10 10">
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Width="220"
+                             Margin="0" FontSize="17" Text="{Binding Path=NumberDetail}" materialDesign:HintAssist.Hint="Введите обозначение"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="20 0"
+                             Width="320" FontSize="17" Text="{Binding Path=NameDetail}" materialDesign:HintAssist.Hint="Введите наименование"/>
+                </StackPanel>
+                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Left" Width="560"
+                         Margin="10 10" FontSize="17" Text="{Binding Path=Developer}" materialDesign:HintAssist.Hint="Введите разработчика"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock FontSize="17" Text="Изменить скан" Margin="10 0"/>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFile}"
+                                Content="{materialDesign:PackIcon Upload}" IsEnabled="{Binding Path=CheckedScan}"
+                                Command="{Binding Path=AddScanCommand}" Margin="40 10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                                Width="40" Height="40" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <TextBlock FontSize="17" Text="{Binding Path=UploadedFileInformation}" Margin="10 0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Изменить" FontSize="17" Command="{Binding Path=ChangeCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавление применяемости -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddApplicability}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddApplicability">
+            <StackPanel Margin="20" Width="400">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20" TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center">
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите раздел" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              FontSize="17" Width="250" HorizontalAlignment="Left" IsReadOnly="True" SelectedValue="{Binding Path=SelectedSection}"
+                              ItemsSource="{Binding Path=ComboSections}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите применяемость" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              FontSize="17" Width="250" HorizontalAlignment="Left" IsReadOnly="True" ItemsSource="{Binding Path=ComboProducts}" Margin="0 20"
+                              SelectedValue="{Binding Path=SelectedProducts}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавление адреса -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddAddress}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddAddress">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 20" Width="400"
+                             FontSize="20" Text="{Binding Path=NumberAndNameDetail}" IsReadOnly="True"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 10" Width="400"
+                             FontSize="20" materialDesign:HintAssist.Hint="Введите адресат" Text="{Binding Path=Address}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
+                        <TextBlock Text="Подписка: " FontSize="20"/>
+                        <ToggleButton Style="{StaticResource MaterialDesignActionLightToggleButton}" IsChecked="{Binding Path=CheckedSubscription}" ToolTip="MaterialDesignActionLightToggleButton" >
+                            <ToggleButton.Content>
+                                <materialDesign:PackIcon Kind="WindowClose" Width="25" Height="25" Margin="0" HorizontalAlignment="Center"/>
+                            </ToggleButton.Content>
+                        </ToggleButton>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно изменения извещения -->
+    <DataTemplate DataType="{x:Type dialogWindows:ChangeNotice}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="ChangeNotice">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 0" Width="300"
+                             FontSize="17" materialDesign:HintAssist.Hint="Введите номер извещения" Text="{Binding Path=NumberNotice}" Foreground="Black"/>
+                    <DatePicker Width="150" materialDesign:HintAssist.Hint="Введите дату" FontSize="17"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                SelectedDate="{Binding Path=DateNotice}" Foreground="Black"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10" Width="250"
+                             FontSize="17" materialDesign:HintAssist.Hint="Введите разработчика" Text="{Binding Path=Developer}" Foreground="Black"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap"  HorizontalAlignment="Center" Margin="10" Width="200"
+                             FontSize="17" materialDesign:HintAssist.Hint="Кол-во листов" Text="{Binding Path=CountSheets}" Foreground="Black"/>
+                </StackPanel>
+                <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10 0" Width="470"
+                         FontSize="17" materialDesign:HintAssist.Hint="Введите код изменения" Text="{Binding Path=ChangeCode}" Foreground="Black"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="0 10">
+                        <TextBlock FontSize="17" Text="Добавить скан" Margin="10 0" Foreground="Black"/>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFile}"
+                                Content="{materialDesign:PackIcon Upload}" Command="{Binding Path=AddScanNotice}"
+                                Margin="40 10" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua" Width="40" Height="40" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <TextBlock FontSize="17" Text="{Binding Path=UploadedFileInformation}" Margin="10 0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400" Foreground="Black"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Изменить" FontSize="17" Command="{Binding Path=ChangeCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно добавления применяемости извещения -->
+    <DataTemplate DataType="{x:Type dialogWindows:AddApplicabilityNotice}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="AddApplicabilityNotice">
+            <StackPanel>
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <ComboBox materialDesign:HintAssist.Hint="Выберите раздел" Foreground="Black" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" SelectedValue="{Binding Path=SelectedIdSection}"
+                          ItemsSource="{Binding Path=ComboSections}" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="10 0"/>
+                <StackPanel Orientation="Horizontal" Margin="10 0">
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите изделие" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" 
+                              FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" ItemsSource="{Binding Path=ComboProducts}"
+                              SelectedValue="{Binding Path=SelectedIdProduct}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Выберите деталь" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" 
+                              FontSize="17" Width="230" HorizontalAlignment="Left" IsReadOnly="True" ItemsSource="{Binding Path=ComboDetails}"
+                              SelectedValue="{Binding Path=SelectedIdDetail}" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="30 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button Content="{materialDesign:PackIcon PlaylistPlus}" Command="{Binding Path=PlusDetail}" ToolTip="Добавить деталь"/>
+                    <Button Content="{materialDesign:PackIcon PlaylistMinus}" Command="{Binding Path=MinusDetail}" Margin="15 0" ToolTip="Убрать деталь"/>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding Path=ProgressIsIndeterminateFileDetail}"
+                            Content="{materialDesign:PackIcon Upload}" Command="{Binding Path=AddScanDetail}" materialDesign:ButtonProgressAssist.IndicatorForeground="Aqua"
+                            Width="40" Height="40" HorizontalAlignment="Left" ToolTip="Добавить обновленный скан"/>
+                </StackPanel>
+                <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" Margin="10" Foreground="Black">
+                    <StackPanel>
+                        <Expander HorizontalAlignment="Stretch" Header="Список деталей, входящих в извещение" IsExpanded="True">
+                            <StackPanel Orientation="Vertical" Margin="10 0">
+                                <TextBlock Text="Архив" Margin="2"/>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ListBox ItemsSource="{Binding Path=NoticeDetails, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectNoticeDetail}" MaxHeight="200">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <ToggleButton VerticalAlignment="Center" IsChecked="{Binding SetArchive}" Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                                                                              Content="{materialDesign:PackIcon CheckboxBlankCircleOutline}" />
+                                                    <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                                        <TextBlock FontWeight="Bold" Text="{Binding NumberAndName}" TextWrapping="Wrap" MaxWidth="350"/>
+                                                        <TextBlock Text="{Binding DescriptionFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" MaxWidth="350"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2">
+                                                        <RadioButton Content="(Изменение скана)" IsChecked="{Binding IsScan}"/>
+                                                        <RadioButton IsChecked="{Binding IsAddApplicability}">
+                                                            <RadioButton.Content>
+                                                                <TextBlock Text="{Binding Path=ContentRadioButtonAdd}" TextWrapping="Wrap" MaxWidth="200"/>
+                                                            </RadioButton.Content>
+                                                        </RadioButton>
+                                                        <RadioButton  IsChecked="{Binding IsDeleteApplicability}">
+                                                            <RadioButton.Content>
+                                                                <TextBlock Text="{Binding Path=ContentRadioButtonDelete}" TextWrapping="Wrap" MaxWidth="200"/>
+                                                            </RadioButton.Content>
+                                                        </RadioButton>
+                                                        <RadioButton Content="(Аннулировано)" IsChecked="{Binding IsArchive}"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Expander>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                            <Button Width="110" Margin="10" Content="Добавить" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                            <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                        </StackPanel>
+                        <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                                     IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно удаления адреса -->
+    <DataTemplate DataType="{x:Type dialogWindows:DeleteAddress}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="DeleteAddress">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding Path=Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Path=Adresses}" MaxHeight="200">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox IsChecked="{Binding Path=IsDelete}"/>
+                                <StackPanel Margin="8 0 0 0" Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock FontWeight="Bold" Text="{Binding AdressText}" TextWrapping="Wrap" FontSize="15"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="110" Margin="10" Content="Удалить" FontSize="17" Command="{Binding Path=DeleteCommand}"/>
+                    <Button Width="110" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+
+    <!-- Окно подключения -->
+    <DataTemplate DataType="{x:Type dialogWindows:UserConnection}">
+        <materialDesign:DialogHost CloseOnClickAway="True" Identifier="UserConnection">
+            <StackPanel Margin="20" Width="500">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Подключение к серверу" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" Margin="10 0" FontSize="20"
+                             materialDesign:HintAssist.Hint="Введите логин" Text="{Binding Path=UserName}"/>
+                    <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="10 20" Width="400" FontSize="20"
+                             materialDesign:HintAssist.Hint="Введите пароль" Text="{Binding Path=UserPassword}"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20">
+                    <Button Width="150" Height="40" Margin="10" Content="Подключиться" FontSize="17" Command="{Binding Path=AddCommand}"/>
+                    <Button Width="150" Height="40" Margin="10" Content="Отмена" FontSize="17" Command="{Binding Path=CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center"
+                             IsIndeterminate="{Binding Path=ProgressIsIndeterminate}" Value="0" />
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </DataTemplate>
+</ResourceDictionary>
